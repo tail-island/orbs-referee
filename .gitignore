@@ -2,10 +2,7 @@
 /npm-debug.log
 /target/
 
-/data/programs/*
-!/data/programs/.gitkeep
-
-/data/questions/*
-!/data/questions/.gitkeep
-
 /data/results/
+
+__pycache__/
+*.py[cod]
