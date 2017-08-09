@@ -1,0 +1,18 @@
+{
+  "name": "orbs-referee",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "babel --plugins transform-regenerator src -d target && node app"
+  },
+  "author": "OJIMA Ryoji",
+  "license": "EPL-1.0",
+  "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "ramda": "^0.24.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.5.2"
+  }
+}
