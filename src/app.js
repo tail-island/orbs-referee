@@ -7,17 +7,19 @@ import calculateScore from './scorekeeper.js';
 // ユーティリティ。
 
 function getChildPaths(directoryPath) {
-  return R.map(R.partial(path.join, [directoryPath]), fs.readdirSync(directoryPath));
+  return R.sortBy(R.identity, R.map(R.partial(path.join, [directoryPath]), fs.readdirSync(directoryPath)));
 }
 
 function unlink(filePath) {
   // TODO: なんか汚い。リファクタリングする。
-  if (fs.statSync(filePath).isDirectory()) {
-    R.forEach(unlink, getChildPaths(filePath));
+  if (fs.exists(filePath)) {
+    if (fs.statSync(filePath).isDirectory()) {
+      R.forEach(unlink, getChildPaths(filePath));
 
-    fs.rmdirSync(filePath);
-  } else {
-    fs.unlinkSync(filePath);
+      fs.rmdirSync(filePath);
+    } else {
+      fs.unlinkSync(filePath);
+    }
   }
 }
 
