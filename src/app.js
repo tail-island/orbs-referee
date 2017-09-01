@@ -113,7 +113,7 @@ function getOrdersCollection(resultsCollection) {
       R.always(results),
       R.addIndex(R.map)((result, index) => R.assoc('index', index, result)),                                      // ソートしても元ネタがわかるように、インデックスを付けます。
       R.filter(result => result.duration < 10000 && R.isNil(result.errorMessage)),                                // 制限時間を守っていてエラーがないデータを……
-      R.sortWith([R.descend(R.prop('score')), R.ascend(R.prop('duration')), R.ascend(R.prop('commandLength'))]),  // スコアの降順、時間の昇順、傾けた回数の昇順でソート。
+      R.sortWith([R.descend(R.prop('score')), R.ascend(R.prop('commandLength'))]),                                // スコアの降順、時間の昇順、傾けた回数の昇順でソート。
       (results) => {                                                                                              // 順位を設定します。
         if (R.isEmpty(results)) {                                                                                 // 誰も回答を出せなかった場合は……
           return [];                                                                                              // 順位の設定は不要。
@@ -122,7 +122,7 @@ function getOrdersCollection(resultsCollection) {
         return R.reduce((acc, [result_1, result_2]) => {
           const result = R.assoc('order',                                                                         // 結果に順位を設定します。
             R.pipe(                                                                                               // 一つ前の結果と同じ結果なら……
-              R.always([R.prop('score'), R.prop('duration'), R.prop('commandLength')]),
+              R.always([R.prop('score'), R.prop('commandLength')]),
               R.map(f => f(result_1) === f(result_2)),
               R.all(R.identity)
             )() ? R.last(acc).order : R.length(acc) + 1, result_2);                                               // 一つ前の結果と同じ順位。そうでなければ、上の人数+1が順位になります。
